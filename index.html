@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Yevhen Lebediev - datatekniker-elev med speciale i cybersikkerhed. Portfolio: pentest, SIEM/IDS, netvaerk og drift.">
+<style>*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}body{margin:0}img{max-width:100%}</style>
+<title>Yevhen Lebediev</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+  /* Layout: centreret dokument-kolonne. Navy hero-panel (altid mørkt, brand-bånd) + lyse/mørke indholdssektioner. Plex Sans til brødtekst, Plex Mono til labels og tekniske briefinger. */
+  :root{
+    --bg:#e7ebf1;
+    --surface:#ffffff;
+    --surface-2:#f3f6fb;
+    --ink:#172130;
+    --muted:#5b6678;
+    --rule:#dce2ec;
+    --accent:#2f77cc;
+    --accent-ink:#2f77cc;
+    --accent-soft:#6fa6e4;
+    --good:#1f9d6b;
+    --crit:#d4503f;
+    /* navy brand-bånd: tema-uafhængigt */
+    --navy:#152338;
+    --navy-2:#1b2d47;
+    --on-navy:#eaf0f8;
+    --on-navy-muted:#9db0cc;
+    --navy-rule:#2b3c58;
+    --font-sans:"IBM Plex Sans","Segoe UI",system-ui,sans-serif;
+    --font-mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+    color-scheme:light;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --bg:#0b1119;
+      --surface:#121b28;
+      --surface-2:#0f1824;
+      --ink:#e7edf6;
+      --muted:#93a1b4;
+      --rule:#243141;
+      --accent-ink:#5a97dd;
+      --accent-soft:#6fa6e4;
+      --good:#3cc489;
+      --crit:#e8705f;
+      color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0b1119;
+    --surface:#121b28;
+    --surface-2:#0f1824;
+    --ink:#e7edf6;
+    --muted:#93a1b4;
+    --rule:#243141;
+    --accent-ink:#5a97dd;
+    --accent-soft:#6fa6e4;
+    --good:#3cc489;
+    --crit:#e8705f;
+    color-scheme:dark;
+  }
+
+  *{box-sizing:border-box}
+  body{background:var(--bg);color:var(--ink);font-family:var(--font-sans);line-height:1.6;
+       -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+
+  .page{max-width:940px;margin:0 auto;
+        padding-left:max(16px,env(safe-area-inset-left,0px));
+        padding-right:max(16px,env(safe-area-inset-right,0px));
+        padding-block:clamp(16px,4vw,40px);
+        display:flex;flex-direction:column;gap:clamp(26px,4vw,40px)}
+
+  /* ---------------- HERO ---------------- */
+  .hero{background:
+          radial-gradient(120% 140% at 100% 0,rgba(47,119,204,.22),transparent 55%),
+          linear-gradient(180deg,var(--navy-2),var(--navy));
+        color:var(--on-navy);border-radius:18px;
+        padding:clamp(26px,5vw,44px);
+        box-shadow:0 18px 50px rgba(13,24,45,.28);
+        position:relative;overflow:hidden}
+  .hero::after{content:"";position:absolute;inset:0;border-radius:18px;
+        border:1px solid rgba(111,166,228,.18);pointer-events:none}
+  .hero-eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.24em;
+        text-transform:uppercase;color:var(--accent-soft)}
+  .hero-name{font-size:clamp(34px,7vw,56px);font-weight:700;line-height:1.02;
+        letter-spacing:-.02em;margin:14px 0 0;text-wrap:balance}
+  .hero-role{font-size:clamp(15px,2.4vw,19px);font-weight:500;color:#cdd9ec;margin-top:10px}
+  .hero-pitch{max-width:60ch;color:var(--on-navy-muted);margin:16px 0 0;font-size:15px;line-height:1.65}
+  .hero-status{display:inline-flex;align-items:center;gap:9px;margin-top:22px;
+        font-size:13px;font-weight:500;color:#d7e4f5;
+        background:rgba(111,166,228,.12);border:1px solid rgba(111,166,228,.28);
+        padding:8px 14px;border-radius:999px}
+  .hero-status .dot{width:8px;height:8px;border-radius:50%;background:#49d08b;
+        box-shadow:0 0 0 4px rgba(73,208,139,.2)}
+  .hero-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+  .hlink{display:inline-flex;align-items:center;gap:8px;text-decoration:none;
+        font-size:13px;font-family:var(--font-mono);color:var(--on-navy);
+        background:rgba(255,255,255,.06);border:1px solid var(--navy-rule);
+        padding:9px 13px;border-radius:10px;transition:border-color .15s,background .15s;cursor:pointer}
+  .hlink:hover{border-color:var(--accent-soft);background:rgba(111,166,228,.12)}
+  .hlink svg{width:15px;height:15px;stroke:var(--accent-soft);flex:none}
+  .hlink .cp{font-size:10px;color:var(--on-navy-muted)}
+  .hlink.copied{border-color:#49d08b}
+  .hlink.copied .cp{color:#49d08b}
+
+  /* ---------------- SECTION SCAFFOLD ---------------- */
+  section{display:flex;flex-direction:column;gap:16px}
+  .eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.2em;
+        text-transform:uppercase;color:var(--accent-ink)}
+  .s-head{display:flex;align-items:baseline;gap:14px}
+  .s-head h2{font-size:clamp(19px,3vw,23px);font-weight:600;letter-spacing:-.01em;margin:0}
+  .s-head .line{flex:1;height:1px;background:var(--rule)}
+  .lead{font-size:15.5px;line-height:1.7;color:var(--ink);max-width:68ch}
+  .lead .hl{color:var(--accent-ink);font-weight:600}
+
+  /* ---------------- CASE STUDY ---------------- */
+  .case{background:var(--surface);border:1px solid var(--rule);border-radius:16px;
+        padding:clamp(22px,4vw,34px);gap:22px;
+        box-shadow:0 6px 24px rgba(20,35,60,.06)}
+  .case-title{font-size:clamp(20px,3.4vw,26px);font-weight:700;letter-spacing:-.01em;margin:0}
+  .case-tag{display:inline-block;font-family:var(--font-mono);font-size:11px;
+        color:var(--crit);border:1px solid color-mix(in srgb,var(--crit) 40%,transparent);
+        background:color-mix(in srgb,var(--crit) 10%,transparent);
+        padding:3px 9px;border-radius:999px;letter-spacing:.04em}
+  .brief{font-family:var(--font-mono);font-size:12.5px;line-height:1.9;
+        background:var(--surface-2);border:1px solid var(--rule);border-radius:12px;
+        padding:16px 18px;overflow-x:auto}
+  .brief .row{display:grid;grid-template-columns:96px 1fr;gap:12px;min-width:0}
+  .brief .k{color:var(--muted);letter-spacing:.08em}
+  .brief .v{color:var(--ink)}
+  .brief .v b{color:var(--accent-ink);font-weight:600}
+
+  .chain{display:flex;flex-direction:column;gap:0;counter-reset:step}
+  .step{display:grid;grid-template-columns:auto 1fr;gap:16px;padding:14px 0;
+        border-top:1px solid var(--rule)}
+  .step:first-child{border-top:none;padding-top:4px}
+  .step-n{font-family:var(--font-mono);font-size:12px;font-weight:600;color:#fff;
+        background:var(--accent);width:28px;height:28px;border-radius:8px;
+        display:flex;align-items:center;justify-content:center;flex:none}
+  .step:last-child .step-n{background:var(--crit)}
+  .step h4{margin:3px 0 4px;font-size:14.5px;font-weight:600}
+  .step p{margin:0;font-size:13.5px;color:var(--muted);line-height:1.6}
+  .step code{font-family:var(--font-mono);font-size:12.5px;color:var(--accent-ink);
+        background:var(--surface-2);padding:1px 6px;border-radius:5px;border:1px solid var(--rule)}
+
+  .result{display:flex;gap:14px;align-items:flex-start;
+        background:color-mix(in srgb,var(--crit) 8%,var(--surface));
+        border:1px solid color-mix(in srgb,var(--crit) 32%,transparent);
+        border-radius:12px;padding:16px 18px}
+  .result svg{width:22px;height:22px;stroke:var(--crit);flex:none;margin-top:1px}
+  .result b{display:block;font-size:14px;margin-bottom:3px}
+  .result p{margin:0;font-size:13.5px;color:var(--muted);line-height:1.6}
+  .rootcause{font-size:14px;line-height:1.65}
+  .rootcause b{color:var(--ink)}
+  .ethic{font-family:var(--font-mono);font-size:11.5px;color:var(--muted);
+        display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+        padding-top:4px;border-top:1px dashed var(--rule)}
+  .ethic svg{width:14px;height:14px;stroke:var(--good);flex:none}
+
+  /* ---------------- PROJECT GRID ---------------- */
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:16px}
+  .card{background:var(--surface);border:1px solid var(--rule);border-radius:14px;
+        padding:20px;display:flex;flex-direction:column;gap:9px;min-width:0;
+        transition:border-color .15s,transform .15s,box-shadow .15s}
+  .card:hover{border-color:var(--accent-soft);transform:translateY(-2px);
+        box-shadow:0 10px 26px rgba(20,35,60,.09)}
+  .card .klabel{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.14em;
+        text-transform:uppercase;color:var(--accent-ink)}
+  .card h3{margin:0;font-size:16px;font-weight:600;letter-spacing:-.01em}
+  .card p{margin:0;font-size:13.5px;color:var(--muted);line-height:1.6}
+  .card .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+  .tag{font-family:var(--font-mono);font-size:10.5px;color:var(--muted);
+        border:1px solid var(--rule);border-radius:6px;padding:2px 7px}
+
+  /* ---------------- SKILLS ---------------- */
+  .skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:14px}
+  .skill{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:16px 18px}
+  .skill .kh{display:flex;align-items:center;gap:9px;margin-bottom:9px}
+  .skill .kh svg{width:17px;height:17px;stroke:var(--accent-ink);flex:none}
+  .skill .kh b{font-size:14px;font-weight:600}
+  .skill .kb{font-size:13px;color:var(--muted);line-height:1.6}
+
+  /* ---------------- TIMELINE / LISTS ---------------- */
+  .xp{display:flex;flex-direction:column;gap:14px}
+  .xp-item{display:grid;grid-template-columns:1fr auto;gap:8px 16px;
+        padding-left:18px;position:relative;align-items:baseline}
+  .xp-item::before{content:"";position:absolute;left:0;top:7px;width:8px;height:8px;
+        border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 16%,transparent)}
+  .xp-item .t{font-size:15px;font-weight:600}
+  .xp-item .o{font-size:13px;color:var(--accent-ink);font-weight:500;grid-column:1/-1;margin-top:-4px}
+  .xp-item .d{font-family:var(--font-mono);font-size:11.5px;color:var(--muted);white-space:nowrap}
+  .xp-item ul{grid-column:1/-1;margin:4px 0 0;padding-left:17px;
+        font-size:13.5px;color:var(--muted);line-height:1.6;display:flex;flex-direction:column;gap:3px}
+
+  .edu{display:flex;flex-direction:column}
+  .edu-row{display:flex;justify-content:space-between;gap:14px;align-items:baseline;
+        padding:11px 0;border-top:1px solid var(--rule);flex-wrap:wrap}
+  .edu-row:first-child{border-top:none}
+  .edu-row .l b{font-weight:600;font-size:14.5px}
+  .edu-row .l span{color:var(--muted);font-size:13.5px}
+  .edu-row .d{font-family:var(--font-mono);font-size:11.5px;color:var(--muted);white-space:nowrap}
+
+  /* ---------------- CERTS ---------------- */
+  .cert-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:16px}
+  .cert-col .ch{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.14em;
+        text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+  .cert-col ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px}
+  .cert-col li{display:flex;gap:9px;align-items:flex-start;font-size:13.5px;line-height:1.5}
+  .cert-col li svg{width:15px;height:15px;flex:none;margin-top:2px}
+  .cert-col.now li svg{stroke:var(--good)}
+  .cert-col.soon li svg{stroke:var(--accent-ink)}
+  .cert-col.later li svg{stroke:var(--muted)}
+  .cert-col li b{font-weight:600}
+
+  /* ---------------- SPROG ---------------- */
+  .langs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:14px 22px}
+  .lang .lt{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+  .lang .lt b{font-size:14px;font-weight:600}
+  .lang .lt span{font-family:var(--font-mono);font-size:11px;color:var(--muted)}
+  .lbar{height:5px;border-radius:3px;background:var(--rule);overflow:hidden}
+  .lbar i{display:block;height:100%;border-radius:3px;
+        background:linear-gradient(90deg,var(--accent),var(--accent-soft))}
+
+  /* ---------------- CTA FOOTER ---------------- */
+  .cta{background:
+          radial-gradient(120% 160% at 0 100%,rgba(47,119,204,.2),transparent 55%),
+          linear-gradient(180deg,var(--navy-2),var(--navy));
+        color:var(--on-navy);border-radius:18px;padding:clamp(26px,5vw,40px);
+        align-items:flex-start;gap:14px}
+  .cta h2{color:#fff;margin:0;font-size:clamp(20px,3.4vw,27px);font-weight:700;letter-spacing:-.01em}
+  .cta p{margin:0;color:var(--on-navy-muted);font-size:14.5px;max-width:54ch}
+  .cta .hero-links{margin-top:8px}
+  .foot-note{font-family:var(--font-mono);font-size:11px;color:var(--muted);
+        text-align:center;padding-top:6px}
+
+  a{color:var(--accent-ink)}
+  :focus-visible{outline:2px solid var(--accent-ink);outline-offset:2px;border-radius:4px}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ============ HERO ============ -->
+  <header class="hero">
+    <div class="hero-eyebrow">Portfolio · Cybersikkerhed</div>
+    <h1 class="hero-name">Yevhen Lebediev</h1>
+    <div class="hero-role">Datatekniker-elev · speciale i cybersikkerhed</div>
+    <p class="hero-pitch">Jeg arbejder praktisk med både offensiv og defensiv sikkerhed, netværk og drift - og lærer hurtigst ved at bygge, bryde og dokumentere tingene selv.</p>
+    <div class="hero-status"><span class="dot"></span> Søger læreplads i Herning-området</div>
+    <nav class="hero-links">
+      <span class="hlink" id="mail" role="button" tabindex="0" title="Kopiér e-mail">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>
+        <span id="mailtxt">yevhen.o.lebediev@gmail.com</span><span class="cp" id="mailcp">kopiér</span>
+      </span>
+      <a class="hlink" href="https://www.linkedin.com/in/yevhen-lebediev/" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v6h-4v-6a2 2 0 0 0-4 0v6h-4v-6a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="11"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
+      <a class="hlink" href="https://tryhackme.com/p/qscb1" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 16 4-4-4-4"/><path d="m6 8-4 4 4 4"/><path d="m14.5 4-5 16"/></svg>
+        TryHackMe
+      </a>    </nav>
+  </header>
+
+  <!-- ============ PROFIL ============ -->
+  <section>
+    <div class="s-head"><span class="eyebrow">01</span><h2>Profil</h2><span class="line"></span></div>
+    <p class="lead">Cybersikkerhedsstuderende (EUD Datatekniker) med praktisk erfaring i <span class="hl">IT-support, drift og sikkerhed</span>. Jeg har bygget et SIEM/IDS-lab med Wazuh og Suricata, gennemført en black box-penetrationstest struktureret efter NIST CSF, og arbejdet hands-on med Cisco-netværk, Windows Server og virtualisering. Jeg er grundig, selvkørende og vant til at dokumentere mit arbejde ordentligt - og klar til at starte som elev.</p>
+  </section>
+
+  <!-- ============ FLAGSHIP CASE ============ -->
+  <section class="case">
+    <div>
+      <span class="eyebrow">Udvalgt projekt · specialopgave</span>
+      <h2 class="case-title" style="margin-top:8px">«Leftovers» - black box-penetrationstest</h2>
+      <div style="margin-top:10px"><span class="case-tag">Resultat: fuld kompromittering</span></div>
+    </div>
+
+    <div class="brief">
+      <div class="row"><span class="k">MÅL</span><span class="v">Internt netværksmiljø (autoriseret lab)</span></div>
+      <div class="row"><span class="k">METODE</span><span class="v">Black box - start fra <b>gæste-WiFi</b>, ingen konti</span></div>
+      <div class="row"><span class="k">RAMME</span><span class="v">Struktureret efter <b>NIST CSF</b> · fund koblet til <b>MITRE ATT&amp;CK</b></span></div>
+      <div class="row"><span class="k">FUND</span><span class="v"><b>15</b> - heraf ét kritisk: fuld kontrol over kerneudstyr</span></div>
+      <div class="row"><span class="k">REGLER</span><span class="v">Autoriseret · read-only på delt udstyr · ingen DoS · ingen persistens</span></div>
+    </div>
+
+    <p class="lead" style="font-size:14.5px">Udgangspunktet var præcis «en tilfældig person udefra»: en uautoriseret enhed på gæstenettet, uden domænekonto og uden forudgående adgang. Herfra kortlagde jeg vejen hele vejen ind til kernen:</p>
+
+    <div class="chain">
+      <div class="step"><div class="step-n">1</div><div>
+        <h4>Fodfæste på gæstenettet</h4>
+        <p>Uautoriseret enhed på gæste-WiFi (isoleret VLAN). Ingen legitimationsoplysninger, ingen intern adgang - nulpunktet.</p>
+      </div></div>
+      <div class="step"><div class="step-n">2</div><div>
+        <h4>Password udtrukket og dekodet</h4>
+        <p>WiFi-nøgler lå gemt som <code>Cisco type-7</code> og blev dekodet. Alle tre SSID'er delte <b>ét og samme password</b> - genbrug på tværs af hele miljøet.</p>
+      </div></div>
+      <div class="step"><div class="step-n">3</div><div>
+        <h4>Ingen segmentering mellem VLAN</h4>
+        <p>Fra gæstenettet var der fuld L3-adgang til både server-VLAN og management-VLAN. Netværket var fladt - intet skilte gæster fra kerneinfrastruktur.</p>
+      </div></div>
+      <div class="step"><div class="step-n">4</div><div>
+        <h4>Fuld kontrol over kerneswitchen</h4>
+        <p>SSH direkte til kerneswitchen fra gæstenettet med det genbrugte password. Ingen brute-force-beskyttelse: 18 forsøg uden lockout eller forsinkelse.</p>
+      </div></div>
+      <div class="step"><div class="step-n">5</div><div>
+        <h4>Lækage fra domæne-controlleren</h4>
+        <p>AD-serverens SMB var nåelig fra gæstenettet og lækkede domænenavn og SID via anonym session. Dybere enumerering blev bevidst afvist.</p>
+      </div></div>
+    </div>
+
+    <div class="result">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+      <div>
+        <b>En gæst med kun gæste-WiFi kunne opnå fuld administrativ kontrol over kerneudstyret.</b>
+        <p>Afstanden fra «ingen adgang» til «fuld kontrol» var næsten nul - det alvorligste resultat man kan finde i en test.</p>
+      </div>
+    </div>
+
+    <p class="rootcause"><b>Rodårsag:</b> ikke svage enkeltkomponenter, men arkitektur uden segmentering kombineret med ét genbrugt password, der beskyttede alt. Afrapporteret med konkrete anbefalinger struktureret efter NIST CSF.</p>
+
+    <div class="ethic">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+      Autoriseret test · read-only på delt udstyr · ingen DoS · ingen bagdøre eller vedvarende adgang
+    </div>
+  </section>
+
+  <!-- ============ FLERE PROJEKTER ============ -->
+  <section>
+    <div class="s-head"><span class="eyebrow">02</span><h2>Flere projekter</h2><span class="line"></span></div>
+    <div class="grid">
+      <div class="card">
+        <span class="klabel">Defensiv · Blue team</span>
+        <h3>SIEM- &amp; IDS-overvågning</h3>
+        <p>Byggede et overvågningslab med automatisk MITRE ATT&amp;CK-tagging og aktiv blokering af SSH-brute-force (T1110) - testet med live angreb.</p>
+        <div class="tags"><span class="tag">Wazuh</span><span class="tag">Suricata</span><span class="tag">Hændelsesanalyse</span></div>
+      </div>
+      <div class="card">
+        <span class="klabel">Infrastruktur</span>
+        <h3>Virtualisering &amp; containere</h3>
+        <p>Proxmox VE og Debian Docker-host med Portainer, Grafana/Prometheus-overvågning og Twingate til Zero Trust-fjernadgang.</p>
+        <div class="tags"><span class="tag">Proxmox</span><span class="tag">Docker</span><span class="tag">Grafana</span><span class="tag">Twingate</span></div>
+      </div>
+      <div class="card">
+        <span class="klabel">Netværk &amp; systemer</span>
+        <h3>Netværks- &amp; serverinfrastruktur</h3>
+        <p>Cisco-netværk med HSRP, EtherChannel, 5 VLAN og DHCP/DNS - samt Active Directory, AD CS, LAPS og GPO på Windows Server.</p>
+        <div class="tags"><span class="tag">Cisco IOS</span><span class="tag">VLAN</span><span class="tag">Active Directory</span></div>
+      </div>
+      <div class="card">
+        <span class="klabel">Analyse &amp; formidling</span>
+        <h3>AD-adgangspolitik &amp; kontolockout</h3>
+        <p>Individuel analyse og fremlæggelse af adgangskodepolitik og lockout-mekanismer i Active Directory - fra svagheder til konkrete tiltag.</p>
+        <div class="tags"><span class="tag">AD</span><span class="tag">GPO</span><span class="tag">Hærdning</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ KOMPETENCER ============ -->
+  <section>
+    <div class="s-head"><span class="eyebrow">03</span><h2>Kompetencer</h2><span class="line"></span></div>
+    <div class="skills">
+      <div class="skill">
+        <div class="kh"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m4 17 6-6-6-6"/><path d="M12 19h8"/></svg><b>Offensiv sikkerhed</b></div>
+        <div class="kb">Penetrationstest, NIST CSF, MITRE ATT&amp;CK, Kali Linux (nmap, Hydra)</div>
+      </div>
+      <div class="skill">
+        <div class="kh"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><b>Defensiv sikkerhed</b></div>
+        <div class="kb">Wazuh SIEM, Suricata IDS, log- og hændelsesanalyse, hærdning</div>
+      </div>
+      <div class="skill">
+        <div class="kh"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg><b>Netværk</b></div>
+        <div class="kb">Cisco IOS: VLAN, trunking, HSRP, EtherChannel, STP, NAT</div>
+      </div>
+      <div class="skill">
+        <div class="kh"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg><b>Windows Server</b></div>
+        <div class="kb">Active Directory (DS/CS), GPO, LAPS, DHCP, DNS</div>
+      </div>
+      <div class="skill">
+        <div class="kh"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><path d="M6 6h.01M6 18h.01"/></svg><b>Virtualisering</b></div>
+        <div class="kb">Proxmox, Docker, Grafana/Prometheus, Twingate (Zero Trust)</div>
+      </div>
+      <div class="skill">
+        <div class="kh"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 18 4-12M6 9l-3 3 3 3M18 9l3 3-3 3"/></svg><b>Scripting</b></div>
+        <div class="kb">Python, C#, PHP (grundlæggende)</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ERFARING ============ -->
+  <section>
+    <div class="s-head"><span class="eyebrow">04</span><h2>Erfaring</h2><span class="line"></span></div>
+    <div class="xp">
+      <div class="xp-item">
+        <div class="t">IT-supporter / datatekniker-elev</div>
+        <div class="d">jan - aug 2026</div>
+        <div class="o">SkoleIT - kort uddannelsesaftale</div>
+        <ul>
+          <li>Windows Server-drift samt opsætning og nulstilling af Cisco-enheder.</li>
+          <li>Daglig IT-support og fejlfinding på netværk og klienter.</li>
+        </ul>
+      </div>
+      <div class="xp-item">
+        <div class="t">Datatekniker-elev · skolepraktik</div>
+        <div class="d">aug 2026 - nu</div>
+        <div class="o">Mercantec - oplæringscenter</div>
+        <ul>
+          <li>Projektbaseret arbejde med sikkerhed, netværk og drift (bl.a. pentest og SIEM/IDS ovenfor).</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ UDDANNELSE + CERTS (to kolonner på bred skærm) ============ -->
+  <section>
+    <div class="s-head"><span class="eyebrow">05</span><h2>Uddannelse</h2><span class="line"></span></div>
+    <div class="edu">
+      <div class="edu-row"><div class="l"><b>EUD Datatekniker, speciale i cybersikkerhed</b> <span>· Mercantec</span></div><div class="d">2025 - nu</div></div>
+      <div class="edu-row"><div class="l"><b>Medie og Kommunikation (FGU)</b> <span>· Midt-Vest Herning</span></div><div class="d">2024 - 2025</div></div>
+      <div class="edu-row"><div class="l"><b>10. klasse</b> <span>· Herningsholm Erhvervsskole</span></div><div class="d">2023 - 2024</div></div>
+    </div>
+  </section>
+
+  <!-- ============ CERTIFICERINGER ============ -->
+  <section>
+    <div class="s-head"><span class="eyebrow">06</span><h2>Certificeringer &amp; kurser</h2><span class="line"></span></div>
+    <div class="cert-cols">
+      <div class="cert-col now">
+        <div class="ch">Gennemført / i gang</div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>TryHackMe</b> - Jr Penetration Tester</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>PROSA</b>-kurser - Docker-, API- og websikkerhed</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>CBT Nuggets</b> - CCNA/CCNP-grundlag</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span><b>ISC2 CC</b> - under forberedelse (2026)</span></li>
+        </ul>
+      </div>
+      <div class="cert-col soon">
+        <div class="ch">Næste mål</div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span><b>CompTIA Security+</b></span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span><b>eJPT</b> - eLearnSecurity Junior Pentester</span></li>
+        </ul>
+      </div>
+      <div class="cert-col later">
+        <div class="ch">På længere sigt</div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/><circle cx="12" cy="12" r="4"/></svg><span><b>OSCP</b> - offensiv sikkerhedscertificering</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SPROG ============ -->
+  <section>
+    <div class="s-head"><span class="eyebrow">07</span><h2>Sprog</h2><span class="line"></span></div>
+    <div class="langs">
+      <div class="lang"><div class="lt"><b>Ukrainsk</b><span>Modersmål</span></div><div class="lbar"><i style="width:100%"></i></div></div>
+      <div class="lang"><div class="lt"><b>Russisk</b><span>Flydende</span></div><div class="lbar"><i style="width:97%"></i></div></div>
+      <div class="lang"><div class="lt"><b>Engelsk</b><span>Avanceret</span></div><div class="lbar"><i style="width:85%"></i></div></div>
+      <div class="lang"><div class="lt"><b>Dansk</b><span>Mellemniveau</span></div><div class="lbar"><i style="width:62%"></i></div></div>
+    </div>
+  </section>
+
+  <!-- ============ CTA ============ -->
+  <footer class="cta">
+    <h2>Klar til at starte som elev</h2>
+    <p>Jeg søger en læreplads som datatekniker i Herning-området, hvor jeg kan bidrage med support, netværk og sikkerhed - og lære fra dygtige kolleger. Tag gerne en uforpligtende snak.</p>
+    <nav class="hero-links">
+      <span class="hlink" id="mail2" role="button" tabindex="0" title="Kopiér e-mail">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>
+        <span>yevhen.o.lebediev@gmail.com</span><span class="cp" id="mailcp2">kopiér</span>
+      </span>
+      <a class="hlink" href="https://www.linkedin.com/in/yevhen-lebediev/" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v6h-4v-6a2 2 0 0 0-4 0v6h-4v-6a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="11"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
+    </nav>
+  </footer>
+
+  <div class="foot-note">Herning, Danmark · opdateret okt. 2026</div>
+
+</div>
+
+<script>
+  (function(){
+    var EMAIL="yevhen.o.lebediev@gmail.com";
+    function wire(el,badge,label){
+      if(!el)return;
+      function copy(){
+        try{
+          navigator.clipboard.writeText(EMAIL).then(function(){flash();},function(){select();});
+        }catch(e){select();}
+      }
+      function flash(){
+        el.classList.add("copied");
+        if(badge)badge.textContent="kopieret ✓";
+        setTimeout(function(){el.classList.remove("copied");if(badge)badge.textContent=label;},1600);
+      }
+      function select(){
+        try{
+          var r=document.createRange();r.selectNodeContents(el);
+          var s=window.getSelection();s.removeAllRanges();s.addRange(r);
+        }catch(e){}
+      }
+      el.addEventListener("click",copy);
+      el.addEventListener("keydown",function(ev){if(ev.key==="Enter"||ev.key===" "){ev.preventDefault();copy();}});
+    }
+    wire(document.getElementById("mail"),document.getElementById("mailcp"),"kopiér");
+    wire(document.getElementById("mail2"),document.getElementById("mailcp2"),"kopiér");
+  })();
+</script>
+
+</body>
+</html>
